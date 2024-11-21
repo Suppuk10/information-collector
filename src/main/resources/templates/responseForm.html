@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Response Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/style.css"></head>
+<body>
+<div class="container">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center" th:text="${form.title}">Form Title</h2>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/form/{id}/response(id=${form.id})}" method="POST">
+                    <div th:each="question : ${form.questions}">
+                        <div class="form-group mb-3">
+                            <label th:text="${question.text}">Question</label>
+                            <div th:if="${question.type == 'text'}">
+                                <input type="text" class="form-control" th:name="'question_' + ${question.text}" required>
+                            </div>
+                            <div th:if="${question.type == 'multiple-choice'}">
+                                <input type="text" class="form-control" th:name="'question_' + ${question.text}" required>
+                            </div>
+                            <div th:if="${question.type == 'checkbox'}">
+                                <input type="text" class="form-control" th:name="'question_' + ${question.text}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

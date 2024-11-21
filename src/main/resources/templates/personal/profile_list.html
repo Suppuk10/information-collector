@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profiles</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css"></head>
+<body>
+<div class="container">
+  <h2 class="text-center">User Profiles</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date of Birth</th>
+      <th>Contact</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.name}"></td>
+      <td th:text="${user.dob}"></td>
+      <td th:text="${user.contact}"></td>
+      <td>
+        <a th:href="@{/profile/{id}(id=${user.id})}" class="btn btn-primary">View</a>
+        <a th:href="@{/profile/delete/{id}(id=${user.id})}" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

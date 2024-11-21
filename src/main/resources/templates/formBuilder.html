@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Form Builder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">  <script>
+        let questionIndex = 0;
+        function addQuestion() {
+            const questionContainer = document.getElementById('questions');
+            const newQuestion = document.createElement('div');
+            newQuestion.innerHTML = `
+                <div class="form-group mb-3">
+                    <label for="questions${questionIndex}.text">Question:</label>
+                    <input type="text" class="form-control" id="questions${questionIndex}.text" name="questions[${questionIndex}].text" required>
+                    <label for="questions${questionIndex}.type">Type:</label>
+                    <select class="form-control" id="questions${questionIndex}.type" name="questions[${questionIndex}].type" required>
+                        <option value="text">Text</option>
+                        <option value="multiple-choice">Multiple Choice</option>
+                        <option value="checkbox">Checkbox</option>
+                    </select>
+                </div>
+            `;
+            questionContainer.appendChild(newQuestion);
+            questionIndex++;
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+  <div class="col-md-6 offset-md-3">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="text-center">Form Builder</h2>
+      </div>
+      <div class="card-body">
+        <form th:action="@{/saveForm}" th:object="${form}" method="POST">
+          <div class="form-group mb-3">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" th:field="*{title}" required>
+          </div>
+          <div id="questions">
+            <!-- Questions will be added here dynamically -->
+          </div>
+          <button type="button" class="btn btn-secondary" onclick="addQuestion()">Add Question</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

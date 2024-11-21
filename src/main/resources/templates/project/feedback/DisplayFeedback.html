@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Feedback</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <!-- Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center">All Feedback</h2>
+
+    <!-- Responsive Table Wrapper -->
+    <div class="table-responsive mt-3">
+        <table class="table table-striped">
+            <thead class="bg-primary text-dark">
+            <tr>
+                <th>Feedback Type</th>
+                <th>Issue Title</th>
+                <th>Description</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Attachment</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="feedback : ${feedbacks}">
+                <td th:text="${feedback.feedbackType}">Feedback Type</td>
+                <td th:text="${feedback.issueTitle}">Issue Title</td>
+                <td th:text="${feedback.description}">Description</td>
+                <td th:text="${feedback.priority}">Priority</td>
+                <td th:text="${feedback.status}">Status</td>
+                <td>
+                    <span th:if="${feedback.attachment != null}">
+                        <!-- Check if the attachment is a PDF -->
+                        <a th:if="${#strings.endsWith(feedback.attachment, '.pdf')}"
+                           th:href="@{/viewFile/{filename}(filename=${feedback.attachment})}"
+                           class="btn btn-info btn-sm">
+                            <i class="bi bi-file-earmark-pdf"></i> View PDF
+                        </a>
+
+                        <!-- Check if the attachment is an image -->
+                        <span th:if="${#strings.endsWith(feedback.attachment, '.jpg') or #strings.endsWith(feedback.attachment, '.jpeg') or #strings.endsWith(feedback.attachment, '.png') or #strings.endsWith(feedback.attachment, '.gif')}"
+                              th:attr="style='cursor: pointer;'"
+                              th:data-bs-toggle="modal" th:data-bs-target="#imageModal" th:onclick="'showImageModal(' + ${feedback.attachment} + ')'">
+                            <img th:src="@{/viewFile/{filename}(filename=${feedback.attachment})}" alt="Feedback Image" width="100" height="100">
+                        </span>
+                    </span>
+                    <span th:if="${feedback.attachment == null or #strings.isEmpty(feedback.attachment)}">No attachment</span>
+                </td>
+                <td class="d-flex justify-content-start">
+                    <!-- Edit Button -->
+                    <a th:href="@{/editFeedback/{id}(id=${feedback.id})}" class="btn btn-warning btn-sm me-2">
+                        <i class="bi bi-pencil"></i> Edit
+                    </a>
+
+                    <!-- Delete Button -->
+                    <form th:action="@{/deleteFeedback/{id}(id=${feedback.id})}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button to return to Feedback Form -->
+    <div class="text-center mt-4">
+        <a href="/feedbackForm" class="btn btn-primary">Back to Feedback Form</a>
+    </div>
+</div>
+
+<!-- Modal for displaying image -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img id="imagePreview" src="" alt="Image Preview" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript to handle image modal -->
+<script>
+    function showImageModal(imageUrl) {
+        document.getElementById('imagePreview').src = "/viewFile/" + imageUrl;
+    }
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

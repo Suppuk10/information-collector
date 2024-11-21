@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>View Responses</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/css/style.css"></head>
+<body>
+<div class="container">
+  <div class="col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="text-center" th:text="${form.title} + ' Responses'">Form Responses</h2>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Response ID</th>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="response : ${responses}">
+            <td th:text="${response.id}"></td>
+            <td th:each="entry : ${response.answers}">
+              <p th:text="${entry.key} + ': ' + ${entry.value}"></p>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

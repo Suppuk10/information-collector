@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .main-content {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            max-width: 100px;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            display: none; /* Hidden by default, shown when applicable */
+        }
+
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .alert-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        .file-info {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="main-content">
+    <div class="image-container">
+        <img src="../../static/images/logo.png" alt="Logo">
+    </div>
+    <h1 class="form-title">Progress Update Form</h1>
+
+    <!-- Alert messages (initially hidden) -->
+    <div class="alert alert-success" th:if="${message}" th:text="${message}" id="alert-success">
+        <!-- Success message goes here -->
+    </div>
+    <div class="alert alert-error" th:if="${errorMessage}" th:text="${errorMessage}" id="alert-error">
+        <!-- Error message goes here -->
+    </div>
+
+    <form action="/progressUpdate" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="project-name">Project Name</label>
+            <input type="text" id="project-name" name="project-name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="milestone-update">Milestone Update</label>
+            <textarea id="milestone-update" name="milestone-update" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="progress-file">Upload Progress Report (optional)</label>
+            <input type="file" id="progress-file" name="progress-file" accept=".xlsx,.pdf">
+            <p class="file-info">You can upload a detailed report (Excel or PDF).</p>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Progress Update</button>
+    </form>
+</div>
+
+<script>
+    // Check if there is a success or error message after page load
+    window.onload = function() {
+        // Get the success and error message elements
+        const successMessage = document.getElementById("alert-success");
+        const errorMessage = document.getElementById("alert-error");
+
+        // If there is a success message, display it
+        if (successMessage && successMessage.innerText.trim() !== "") {
+            successMessage.style.display = "block";
+        }
+
+        // If there is an error message, display it
+        if (errorMessage && errorMessage.innerText.trim() !== "") {
+            errorMessage.style.display = "block";
+        }
+    };
+</script>
+</body>
+</html>

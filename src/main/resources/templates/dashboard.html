@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/dashboard.css"  />
+</head>
+<body>
+<div class="dashboard">
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <img src="../static/images/logo.png" alt="Logo" class="logo"/>
+      <h3 class="hover">AVIRANT </br> ENTERPRISES</h3>
+    </div>
+    <ul class="nav-links">
+      <li class="active" data-page="dashboard"><a href="#dashboard"><i class="fas fa-home"></i>Dashboard</a></li>
+      <li data-page="Manage Users"><a href="#Manage Users"><i class="fas fa-users"></i>Manage Users</a></li>
+      <li data-page="Manage Projects"><a href="#Manage Projects"><i class="fa-solid fa-list-check" style="color: #000000;"></i>Manage Projects</a></li>
+      <li data-page="View Reports"><a href="#View Reports"><i class="fa-solid fa-eye" style="color: #000000;"></i>View Reports</a></li>
+      <li data-page="settings"><a href="#settings"><i class="fas fa-cog"></i>Settings</a></li>
+      <button class="button-2" role="button" id="logout-button">Logout</button>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <header>
+
+    </header>
+    <div id="dashboard" class="page-content active">
+      <h1 style="padding: 10px; color: black;">Welcome to Information Collector </h1>
+      <div class="stats-grid">
+        <div class="stat-card glow">
+          <i class="fa-sharp fa-solid fa-circle-info" style="color: #ffffff;"></i>
+          <div class="stat-info">
+            <h3>Personal Information Collection</h3>
+            <button class="button-1 dropdown-button" data-dropdown="personal-info-dropdown">View Forms</button>
+            <div class="form-links dropdown" id="personal-info-dropdown">
+              <ul>
+                <li><a href="registration.html" >Registration Form</a></li>
+                <li><a href="profile_update.html" >Profile Update Form</a></li>
+                <li><a href="survey_form.html" >Survey Form</a></li>
+                <li><a href="contact_form.html" >Contact Information Form</a></li>
+                <li><a href="subscription_form.html" >Subscription Form</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card glow">
+          <i class="fa-solid fa-database" style="color: #ffffff;"></i>
+          <div class="stat-info">
+            <h3>Business and Financial Data Collection</h3>
+            <button class="button-1 dropdown-button" data-dropdown="business-data-dropdown">View Forms</button>
+            <div class="form-links dropdown" id="business-data-dropdown">
+              <ul>
+                <li><a href="expense_report.html" >Expense Report Form</a></li>
+                <li><a href="invoice_submission.html" >Invoice Submission Form</a></li>
+                <li><a href="tax_form.html" >Tax Form</a></li>
+                <li><a href="employee_performance.html" >Employee Performance Form</a></li>
+                <li><a href="asset_registration.html" >Asset Registration Form</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card glow">
+          <i class="fa-solid fa-bars-progress" style="color: #ffffff;"></i>
+          <div class="stat-info">
+            <h3>Project and Task Management</h3>
+            <button class="button-1 dropdown-button" data-dropdown="project-dropdown">View Forms</button>
+            <div class="form-links dropdown" id="project-dropdown">
+              <ul>
+                <li><a href="/taskAssignForm " >Task Assignment Form</a></li>
+                <li><a href="/projectProposalForm" >Project Proposal Form</a></li>
+                <li><a href="/feedbackForm" >Feedback and Issue Tracking Form</a></li>
+                <li><a href="/resourceAllocation" >Resource Allocation Form</a></li>
+                <li><a href="/progressUpdate" >Progress Update Form</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card glow">
+          <i class="fa-solid fa-chalkboard-user" style="color: #ffffff;"></i>
+          <div class="stat-info">
+            <h3>Educational and Training Data Collection</h3>
+            <button class="button-1 dropdown-button" data-dropdown="education-dropdown">View Forms</button>
+            <div class="form-links dropdown" id="education-dropdown">
+              <ul>
+                <li><a href="Course_Enrollment_Form.html" >Course Enrollment Form</a></li>
+                <li><a href="Assignment_Submission_Form.html" >Assignment Submission Form</a></li>
+                <li><a href="Training_Feedback_Form.html" >Training Feedback Form</a></li>
+                <li><a href="Event_Registration_Form.html" >Event Registration Form</a></li>
+                <li><a href="Certification_Upload_Form" >Certification Upload Form</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card glow">
+          <i class="fas fa-download" style="color: #ffffff;"></i>
+          <div class="stat-info">
+            <h3>Download Feedbacks</h3>
+            <a href="/downloadFeedbacks" class="button-1">Download CSV</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </main>
+</div>
+
+<script>
+  const dropdownButtons = document.querySelectorAll('.dropdown-button');
+
+  dropdownButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const dropdownId = button.getAttribute('data-dropdown');
+      const dropdown = document.getElementById(dropdownId);
+
+      // Toggle visibility of the current dropdown
+      if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+      } else {
+        dropdown.style.display = 'block';
+      }
+
+      // Hide other dropdowns
+      document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+        if (otherDropdown.id !== dropdownId) {
+          otherDropdown.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Close all dropdowns if clicked outside
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.dropdown-button') && !event.target.closest('.form-links')) {
+      document.querySelectorAll('.dropdown').forEach(dropdown => {
+        dropdown.style.display = 'none';
+      });
+    }
+  });
+
+  // Logout functionality
+    const logoutButton = document.getElementById('logout-button');
+
+    logoutButton.addEventListener('click', () => {
+      // Clear session or local storage (if used for login)
+      sessionStorage.clear();
+      localStorage.clear();
+
+      // Redirect to the login page
+      window.location.href = 'login.html'; // Replace 'login.html' with the actual path to your login page
+    });
+</script>
+<style>
+  header {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-image:url(static/images/breadcrum.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+</style>
+</body>
+</html>

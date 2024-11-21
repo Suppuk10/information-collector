@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resource Allocation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .main-content {
+      width: 100%;
+      max-width: 600px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .form-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555555;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #dddddd;
+      background-color: #f9f9f9;
+    }
+
+    .btn-submit {
+      background-color: #007bff;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-submit:hover {
+      background-color: #0056b3;
+    }
+
+    /* Styles for success and error messages */
+    .message {
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .success {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .error {
+      background-color: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+<div class="main-content">
+  <h1 class="form-title">Resource Allocation</h1>
+
+  <!-- Display success message -->
+  <div th:if="${successMessage}" class="message success">
+    <p th:text="${successMessage}"></p>
+  </div>
+
+  <!-- Display error message -->
+  <div th:if="${errorMessage}" class="message error">
+    <p th:text="${errorMessage}"></p>
+  </div>
+
+  <form action="/resourceAllocation" method="post">
+    <div class="form-group">
+      <label for="resource-name">Resource Name</label>
+      <input type="text" id="resource-name" name="resource-name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" name="quantity" required>
+    </div>
+
+    <div class="form-group">
+      <label for="allocated-by">Allocated By</label>
+      <input type="text" id="allocated-by" name="allocated-by" required>
+    </div>
+
+    <div class="form-group">
+      <label for="allocated-to">Allocated To</label>
+      <input type="text" id="allocated-to" name="allocated-to" required>
+    </div>
+
+    <div class="form-group">
+      <label for="allocation-date">Allocation Date</label>
+      <input type="date" id="allocation-date" name="allocation-date" required>
+    </div>
+
+    <div class="form-group">
+      <label for="time-duration">Time Duration</label>
+      <input type="text" id="time-duration" name="time-duration" placeholder="e.g., 2 weeks, 1 month" required>
+    </div>
+
+    <button type="submit" class="btn-submit">Submit</button>
+  </form>
+</div>
+</body>
+</html>

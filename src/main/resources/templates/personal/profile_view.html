@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">  <style>
+    .profile-picture {
+        max-width: 100px;
+        max-height: 400px;
+        margin: auto;
+        display: block;
+    }
+    .profile-table {
+        width: 100%;
+        margin: auto;
+    }
+    .profile-table th, .profile-table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2 class="text-center">User Profile</h2>
+  <div class="text-center">
+    <!-- Updated image source to reflect the static location configuration -->
+    <img th:src="@{/files/{fileName}(fileName=${user.profilePicPath})}" alt="Profile Picture" class="img-thumbnail profile-picture"/>
+  </div>
+  <table class="table profile-table">
+    <tbody>
+    <tr>
+      <th>Name</th>
+      <td th:text="${user.name}"></td>
+    </tr>
+    <tr>
+      <th>Date of Birth</th>
+      <td th:text="${user.dob}"></td>
+    </tr>
+    <tr>
+      <th>Contact Info</th>
+      <td th:text="${user.contact}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <a th:href="@{/profile/update/{id}(id=${user.id})}" class="btn btn-secondary">Update Profile</a>
+    <a th:href="@{/profile/download/{id}(id=${user.id})}" class="btn btn-secondary">Download Profile as PDF</a>
+  </div>
+</div>
+</body>
+</html>
